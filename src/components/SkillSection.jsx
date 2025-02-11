@@ -15,7 +15,7 @@ import reactIcon from "../assets/images/react.png"
 
 const SkillSection = () => {
     return (
-        <div className="flex flex-col w-11/12 mx-auto py-10 items-center">
+        <div className="flex flex-col w-11/12 mx-auto pb-10 pt-[100px] items-center">
             <button className="px-3 py-2 text-xl font-bold bg-[#970747] text-white rounded flex items-center justify-center lg:w-[200px] w-full gap-1 mb-10"><FaArrowRight></FaArrowRight>Skills</button>
             <div className="grid lg:grid-cols-7 md:grid-cols-5 grid-cols-2  gap-5">
                 <div className="flex flex-col items-center">

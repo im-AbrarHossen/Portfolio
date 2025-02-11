@@ -4,7 +4,7 @@ import project2 from "../assets/images/Project2.png"
 
 const WorkSection = () => {
     return (
-        <div className="py-10 w-11/12 mx-auto flex flex-col items-center gap-10">
+        <div className="pb-10 pt-[100px] w-11/12 mx-auto flex flex-col items-center gap-10">
             <button className="px-3 py-2 bg-[#970747] text-xl font-bold text-white rounded flex items-center justify-center gap-1 mb-5 w-full lg:w-[200px]"><FaArrowRight></FaArrowRight>My Works</button>
             <div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
                 <div className="bg-gray-400 border rounded p-5">
