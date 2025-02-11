@@ -1,6 +1,6 @@
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
-import WorkSection from "../../components/WorkSection";
+import WorkSection from "../../components/WorkSection"
 
 const Works = () => {
     return (

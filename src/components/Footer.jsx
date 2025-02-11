@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <div className="bg-[#970747] p-5 text-white flex flex-col items-center gap-10">
             <div className="text-3xl font-extrabold">&lt;Abrar /&gt;</div>
-            <div className="flex items-center justify-center gap-5 text-xl">
+            <div className="flex lg:flex-row md:flex-row sm:flex-row flex-col items-center justify-center gap-5 text-xl">
                 <Link to='/'>Home</Link>
                 <Link to='/about'>About Me</Link>
                 <Link to='/skills'>Skills</Link>

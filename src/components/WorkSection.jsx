@@ -1,28 +1,32 @@
+import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
-import project1 from "../assets/images/Project1.png"
-import project2 from "../assets/images/Project2.png"
+import axios from "axios";
+import { Link } from "react-router";
 
 const WorkSection = () => {
+    const [works, setWorks] = useState([]);
+
+    useEffect(() => {
+        axios.get("https://abrar-portfolio-server.vercel.app/works")
+            .then(res => setWorks(res.data))
+            .catch(err => console.error(err));
+    }, []);
+
     return (
         <div className="pb-10 pt-[100px] w-11/12 mx-auto flex flex-col items-center gap-10">
-            <button className="px-3 py-2 bg-[#970747] text-xl font-bold text-white rounded flex items-center justify-center gap-1 mb-5 w-full lg:w-[200px]"><FaArrowRight></FaArrowRight>My Works</button>
-            <div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
-                <div className="bg-gray-400 border rounded p-5">
-                    <img className="w-full" src={project1} alt="" />
-                    <p></p>
-                    <div className="flex items-center justify-between mt-6">
-                        <a className="btn text-white bg-[#970747] hover:bg-[#970747]" href="https://im-abrarhossen.github.io/B10A5-DOM/" target="_blank">Live Preview</a>
-                        <a className="btn text-white bg-[#970747] hover:bg-[#970747]" href="https://github.com/im-AbrarHossen/B10A5-DOM.git" target="_blank">Github Repository</a>
+            <button className="px-3 py-2 bg-[#970747] text-xl font-bold text-white rounded flex items-center justify-center gap-1 mb-5 w-full lg:w-[200px]">
+                <FaArrowRight /> My Works
+            </button>
+            <div className="grid lg:grid-cols-3 grid-cols-1 gap-5">
+                {works.map(work => (
+                    <div key={work._id} className="border p-4 rounded-lg shadow-md flex flex-col items-center">
+                        <img src={work.image} alt={work.name} className="w-full h-48 object-cover rounded-md" />
+                        <h2 className="text-xl font-semibold mt-3 dark:text-white">{work.name}</h2>
+                        <Link to={`/works/${work._id}`} className="mt-3 px-4 py-2 bg-[#970747] text-white rounded">
+                            View Details
+                        </Link>
                     </div>
-                </div>
-                <div className="bg-gray-400 border rounded p-5">
-                    <img className="w-full" src={project2} alt="" />
-                    <p></p>
-                    <div className="flex items-center justify-between mt-6">
-                        <a className="btn text-white bg-[#970747] hover:bg-[#970747]" href="https://im-abrarhossen.github.io/B10A3-Rinterio/" target="_blank">Live Preview</a>
-                        <a className="btn text-white bg-[#970747] hover:bg-[#970747]" href="https://github.com/im-AbrarHossen/B10A3-Rinterio.git" target="_blank">Github Repository</a>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     );
