@@ -5,6 +5,7 @@ import Skills from "../pages/public-pages/Skills";
 import Works from "../pages/public-pages/Works";
 import Contact from "../pages/public-pages/Contact";
 import WorkDetails from "../pages/public-pages/WorkDetails";
+import Error from "../pages/public-pages/Error";
 
 const router = createBrowserRouter([
     {
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
     },
     {
         path: '*',
-        element: 'error',
+        element: <Error></Error>,
     },
 ]);
 
