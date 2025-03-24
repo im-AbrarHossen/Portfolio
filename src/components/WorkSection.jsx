@@ -19,10 +19,10 @@ const WorkSection = () => {
             </button>
             <div className="grid lg:grid-cols-3 grid-cols-1 gap-5">
                 {works.map(work => (
-                    <div key={work._id} className="border p-4 rounded-lg shadow-md flex flex-col items-center">
-                        <img src={work.image} alt={work.name} className="w-full h-48 object-cover rounded-md" />
+                    <div key={work._id} className="border rounded-lg shadow-md flex flex-col items-center">
+                        <img src={work.image} alt={work.name} className="w-full h-48 object-cover rounded-t-lg" />
                         <h2 className="text-xl font-semibold mt-3 dark:text-white">{work.name}</h2>
-                        <Link to={`/works/${work._id}`} className="mt-3 px-4 py-2 bg-[#970747] text-white rounded">
+                        <Link to={`/works/${work._id}`} className="my-3 btn bg-[#970747] text-white">
                             View Details
                         </Link>
                     </div>

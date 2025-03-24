@@ -58,9 +58,9 @@ const Navbar = () => {
                         </ul>
                     </details>
                 </div>
-                <div className="text-3xl font-extrabold flex items-center gap-2">
+                <div className="text-3xl font-extrabold flex items-center gap-1">
                     <img className="w-7" src={Logo} alt="" />
-                    <h1>Abrar</h1>
+                    <h1 className="text-[#970747]">brar</h1>
                 </div>
                 <div className="lg:flex items-center gap-3 hidden">
                     <NavLink
