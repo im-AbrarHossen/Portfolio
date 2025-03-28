@@ -101,18 +101,18 @@ function a11yProps(index) {
 }
 
 const techStacks = [
-  { icon: "src/assets/images/html.svg", language: "HTML" },
-  { icon: "src/assets/images/css.svg", language: "CSS" },
-  { icon: "src/assets/images/javascript.svg", language: "JavaScript" },
-  { icon: "src/assets/images/tailwind.svg", language: "Tailwind CSS" },
-  { icon: "src/assets/images/reactjs.svg", language: "ReactJS" },
-  { icon: "src/assets/images/vite.svg", language: "Vite" },
-  { icon: "src/assets/images/nodejs.svg", language: "Node JS" },
-  { icon: "src/assets/images/mongodb.svg", language: "MongoDB" },
-  { icon: "src/assets/images/firebase.svg", language: "Firebase" },
-  { icon: "src/assets/images/figma.svg", language: "Figma" },
-  { icon: "src/assets/images/vercel.svg", language: "Vercel" },
-  { icon: "src/assets/images/SweetAlert.svg", language: "SweetAlert2" },
+  { icon: "html.svg", language: "HTML" },
+  { icon: "css.svg", language: "CSS" },
+  { icon: "javascript.svg", language: "JavaScript" },
+  { icon: "tailwind.svg", language: "Tailwind CSS" },
+  { icon: "reactjs.svg", language: "ReactJS" },
+  { icon: "vite.svg", language: "Vite" },
+  { icon: "nodejs.svg", language: "Node JS" },
+  { icon: "mongodb.svg", language: "MongoDB" },
+  { icon: "firebase.svg", language: "Firebase" },
+  { icon: "figma.svg", language: "Figma" },
+  { icon: "vercel.svg", language: "Vercel" },
+  { icon: "SweetAlert.svg", language: "SweetAlert2" },
 ];
 
 export default function FullWidthTabs() {
