@@ -101,18 +101,18 @@ function a11yProps(index) {
 }
 
 const techStacks = [
-  { icon: "html.svg", language: "HTML" },
-  { icon: "css.svg", language: "CSS" },
-  { icon: "javascript.svg", language: "JavaScript" },
-  { icon: "tailwind.svg", language: "Tailwind CSS" },
-  { icon: "reactjs.svg", language: "ReactJS" },
-  { icon: "vite.svg", language: "Vite" },
-  { icon: "nodejs.svg", language: "Node JS" },
-  { icon: "bootstrap.svg", language: "Bootstrap" },
-  { icon: "firebase.svg", language: "Firebase" },
-  { icon: "MUI.svg", language: "Material UI" },
-  { icon: "vercel.svg", language: "Vercel" },
-  { icon: "SweetAlert.svg", language: "SweetAlert2" },
+  { icon: "src/assets/images/html.svg", language: "HTML" },
+  { icon: "src/assets/images/css.svg", language: "CSS" },
+  { icon: "src/assets/images/javascript.svg", language: "JavaScript" },
+  { icon: "src/assets/images/tailwind.svg", language: "Tailwind CSS" },
+  { icon: "src/assets/images/reactjs.svg", language: "ReactJS" },
+  { icon: "src/assets/images/vite.svg", language: "Vite" },
+  { icon: "src/assets/images/nodejs.svg", language: "Node JS" },
+  { icon: "src/assets/images/mongodb.svg", language: "MongoDB" },
+  { icon: "src/assets/images/firebase.svg", language: "Firebase" },
+  { icon: "src/assets/images/figma.svg", language: "Figma" },
+  { icon: "src/assets/images/vercel.svg", language: "Vercel" },
+  { icon: "src/assets/images/SweetAlert.svg", language: "SweetAlert2" },
 ];
 
 export default function FullWidthTabs() {
@@ -194,7 +194,7 @@ export default function FullWidthTabs() {
   });
 
   return (
-    <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-hidden" id="Portofolio">
+    <div className="md:px-[10%] px-[5%] w-full bg-[#030014] overflow-hidden" id="Portofolio">
       {/* Header section - unchanged */}
       <div className="text-center pb-10" data-aos="fade-up" data-aos-duration="1000">
         <h2 className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">

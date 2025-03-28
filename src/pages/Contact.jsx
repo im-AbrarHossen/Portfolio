@@ -79,7 +79,7 @@ const ContactPage = () => {
 
   return (
     <>
-      <div className="bg-[#030014] text-center sm:px-0 px-[5%]">
+      <div className="bg-[#030014] text-center pt-10 sm:px-0 px-[5%]">
         <h2
           data-aos="fade-down"
           data-aos-duration="1000"

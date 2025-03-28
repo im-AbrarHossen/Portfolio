@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Home from "../pages/Home";
 import About from "../pages/About";
-import Portofolio from "../pages/Portofolio";
+import Portofolio from "../pages/Portfolio";
 import ContactPage from "../pages/Contact";
 import ProjectDetails from "../components/ProjectDetail";
 import WelcomeScreen from "../pages/WelcomeScreen";

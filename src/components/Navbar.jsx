@@ -140,15 +140,15 @@ const Navbar = () => {
     
         {/* Mobile Menu Overlay */}
         <div
-            className={`md:hidden h-2/5 fixed inset-0 bg-[#030014] transition-all duration-300 ease-in-out ${
+            className={`md:hidden h-[220px] fixed inset-0 bg-[#030014] transition-all duration-300 ease-in-out ${
                 isOpen
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-[-100%] pointer-events-none"
             }`}
             style={{ top: "64px" }}
         >
-            <div className="flex flex-col h-full">
-                <div className="px-4 space-y-4 flex-1 ">
+            <div className="">
+                <div className="px-4 grid grid-cols-1 gap-0">
                     {navItems.map((item, index) => (
                         <Link
                             key={item.label}

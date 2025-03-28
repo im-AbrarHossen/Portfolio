@@ -161,7 +161,7 @@ const Home = () => {
     <div className="min-h-screen bg-[#030014] overflow-hidden" id="Home">
       <div className={`relative z-10 transition-all duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
         <div className="w-11/12 mx-auto">
-          <div className="flex flex-col lg:flex-row items-center justify-between pb-10 lg:pb-0">
+          <div className="flex flex-col lg:flex-row items-center justify-between pb-8 md:pb-[80px] lg:pb-0">
             {/* Left Column */}
             <div className="w-full lg:w-1/2 space-y-6 sm:space-y-8 text-left lg:text-left order-1 lg:order-1 lg:mt-0"
               data-aos="fade-right"
