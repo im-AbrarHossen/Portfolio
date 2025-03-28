@@ -79,7 +79,7 @@ const ContactPage = () => {
 
   return (
     <>
-      <div className="text-center lg:mt-[5%] mt-10 mb-2 sm:px-0 px-[5%]">
+      <div className="bg-[#030014] text-center sm:px-0 px-[5%]">
         <h2
           data-aos="fade-down"
           data-aos-duration="1000"
@@ -108,7 +108,7 @@ const ContactPage = () => {
       </div>
 
       <div
-        className="h-auto py-10 flex items-center justify-center px-[5%] md:px-0"
+        className="bg-[#030014] h-auto py-10 flex items-center justify-center px-[5%] md:px-0"
         id="Contact"
       >
         <div className="container grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 md:w-11/12 md:mx-auto lg:grid-cols-[40%_50%] 2xl:grid-cols-[35%_65%] gap-12 justify-center">

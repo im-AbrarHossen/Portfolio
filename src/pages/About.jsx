@@ -185,7 +185,7 @@ const AboutPage = () => {
 
   return (
     <div
-      className="h-auto pb-[10%] text-white overflow-hidden px-[5%] sm:px-[5%] lg:px-[10%] mt-10 sm-mt-0"
+      className="bg-[#030014] h-auto pb-[10%] text-white overflow-hidden px-[5%] sm:px-[5%] lg:px-[10%]"
       id="About"
     >
       <Header />
@@ -215,10 +215,7 @@ const AboutPage = () => {
               data-aos="fade-right"
               data-aos-duration="1500"
             >
-              seorang siswa Teknik Jaringan Komputer dan Telekomunikasi yang
-              tertarik dalam pengembangan Front-End. Saya berfokus pada
-              menciptakan pengalaman digital yang menarik dan selalu berusaha
-              memberikan solusi terbaik dalam setiap proyek.
+              I'm a front-end developer and I have a talent for making dynamic, responsive, and aesthetically pleasing websites. With my proficiency in cutting-edge front-end technologies like as Tailwind CSS, React, DaisyUI, and other UI elements, I work hard to provide flawless user experiences. To create dependable and expandable applications, I use Node.js with MongoDB on the backend. To keep ahead in the rapidly changing tech industry, I'm now studying and improving my skills. Whether it's creating cutting-edge platforms like Service Orbit or creating elegant designs for Film Fusion, I enjoy taking on new challenges and making concepts a reality. Together, we can make your vision a reality!
             </p>
 
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full">

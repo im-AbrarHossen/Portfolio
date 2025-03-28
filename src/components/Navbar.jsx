@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -79,22 +80,22 @@ const Navbar = () => {
             <div className="flex items-center justify-between h-16">
                 {/* Logo */}
                 <div className="flex-shrink-0">
-                    <a
-                        href="#Home"
+                    <Link
+                        to="#Home"
                         onClick={(e) => scrollToSection(e, "#Home")}
                         className="text-xl font-bold bg-gradient-to-r from-[#a855f7] to-[#6366f1] bg-clip-text text-transparent"
                     >
                         AbrarHossen
-                    </a>
+                    </Link>
                 </div>
     
                 {/* Desktop Navigation */}
                 <div className="hidden md:block">
                     <div className="ml-8 flex items-center space-x-8">
                         {navItems.map((item) => (
-                            <a
+                            <Link
                                 key={item.label}
-                                href={item.href}
+                                to={item.href}
                                 onClick={(e) => scrollToSection(e, item.href)}
                                 className="group relative px-1 py-2 text-sm font-medium"
                             >
@@ -114,7 +115,7 @@ const Navbar = () => {
                                             : "scale-x-0 group-hover:scale-x-100"
                                     }`}
                                 />
-                            </a>
+                            </Link>
                         ))}
                     </div>
                 </div>
@@ -149,9 +150,9 @@ const Navbar = () => {
             <div className="flex flex-col h-full">
                 <div className="px-4 space-y-4 flex-1 ">
                     {navItems.map((item, index) => (
-                        <a
+                        <Link
                             key={item.label}
-                            href={item.href}
+                            to={item.href}
                             onClick={(e) => scrollToSection(e, item.href)}
                             className={`block px-4 py-3 text-lg font-medium transition-all duration-300 ease ${
                                 activeSection === item.href.substring(1)
@@ -165,7 +166,7 @@ const Navbar = () => {
                             }}
                         >
                             {item.label}
-                        </a>
+                        </Link>
                     ))}
                 </div>
             </div>
