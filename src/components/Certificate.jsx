@@ -56,12 +56,12 @@ const Certificate = ({ ImgSertif }) => {
 						},
 					}}>
 					<img
-						className="certificate-image"
+						className="certificate-image rounded"
 						src={ImgSertif}
 						alt="Certificate"
 						style={{
 							width: "100%",
-							height: "auto",
+							height: "253px",
 							display: "block",
 							objectFit: "cover",
 							filter: "contrast(1.10) brightness(0.9) saturate(1.1)",
