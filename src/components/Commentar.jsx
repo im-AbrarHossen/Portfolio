@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
-import { getDocs, addDoc, collection, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../firebase-comment';
 import { MessageCircle, UserCircle2, Loader2, AlertCircle, Send, ImagePlus, X } from 'lucide-react';
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Comment = memo(({ comment, formatDate, index }) => (
-    <div 
+    <div
         className="px-4 pt-4 pb-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all group hover:shadow-lg hover:-translate-y-0.5"
-        
     >
         <div className="flex items-start gap-3 ">
             {comment.profileImage ? (
@@ -67,7 +63,7 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
         if (!newComment.trim() || !userName.trim()) return;
-        
+
         onSubmit({ newComment, userName, imageFile });
         setNewComment('');
         setImagePreview(null);
@@ -85,7 +81,7 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
                 <input
                     type="text"
                     value={userName}
-                    onChange={(e) => setUserName(e.target.value)}z
+                    onChange={(e) => setUserName(e.target.value)}
                     placeholder="Enter your name"
                     className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
                     required
@@ -132,7 +128,7 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
                             </button>
                         </div>
                     ) : (
-                        <div className="w-full" >
+                        <div className="w-full">
                             <input
                                 type="file"
                                 ref={fileInputRef}
@@ -187,56 +183,86 @@ const Komentar = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        // Initialize AOS
         AOS.init({
             once: false,
             duration: 1000,
         });
-    }, []);
-
-    useEffect(() => {
-        const commentsRef = collection(db, 'portfolio-comments');
-        const q = query(commentsRef, orderBy('createdAt', 'desc'));
         
-        return onSnapshot(q, (querySnapshot) => {
-            const commentsData = querySnapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-            setComments(commentsData);
-        });
+        // Fetch comments from your MongoDB backend
+        const fetchComments = async () => {
+            try {
+                const response = await fetch('https://abrar-portfolio-server.vercel.app/comments');
+                const data = await response.json();
+                setComments(data);
+            } catch (err) {
+                console.error('Error fetching comments:', err);
+            }
+        };
+        
+        fetchComments();
     }, []);
 
-    const uploadImage = useCallback(async (imageFile) => {
+    const uploadImageToImageBB = async (imageFile) => {
         if (!imageFile) return null;
-        const storageRef = ref(storage, `profile-images/${Date.now()}_${imageFile.name}`);
-        await uploadBytes(storageRef, imageFile);
-        return getDownloadURL(storageRef);
-    }, []);
+        
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        
+        try {
+            const response = await fetch(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_APP_IMGBB_API_KEY}`, {
+                method: 'POST',
+                body: formData
+            });
+            
+            const data = await response.json();
+            return data.data.url;
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            return null;
+        }
+    };
 
     const handleCommentSubmit = useCallback(async ({ newComment, userName, imageFile }) => {
         setError('');
         setIsSubmitting(true);
-        
+
         try {
-            const profileImageUrl = await uploadImage(imageFile);
-            await addDoc(collection(db, 'portfolio-comments'), {
-                content: newComment,
-                userName,
-                profileImage: profileImageUrl,
-                createdAt: serverTimestamp(),
+            // Upload image to ImageBB if provided
+            const profileImageUrl = await uploadImageToImageBB(imageFile);
+            
+            // Post comment to your MongoDB backend
+            const response = await fetch('https://abrar-portfolio-server.vercel.app/comments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: newComment,
+                    userName,
+                    profileImage: profileImageUrl,
+                    createdAt: new Date().toISOString(),
+                }),
             });
+            
+            if (!response.ok) {
+                throw new Error('Failed to post comment');
+            }
+            
+            // Refresh comments after successful post
+            const updatedResponse = await fetch('https://abrar-portfolio-server.vercel.app/comments');
+            const updatedData = await updatedResponse.json();
+            setComments(updatedData);
         } catch (error) {
             setError('Failed to post comment. Please try again.');
             console.error('Error adding comment: ', error);
         } finally {
             setIsSubmitting(false);
         }
-    }, [uploadImage]);
+    }, []);
 
-    const formatDate = useCallback((timestamp) => {
-        if (!timestamp) return '';
-        const date = timestamp.toDate();
+    const formatDate = useCallback((dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
         const now = new Date();
         const diffMinutes = Math.floor((now - date) / (1000 * 60));
         const diffHours = Math.floor(diffMinutes / 60);
@@ -247,72 +273,72 @@ const Komentar = () => {
         if (diffHours < 24) return `${diffHours}h ago`;
         if (diffDays < 7) return `${diffDays}d ago`;
 
-        return new Intl.DateTimeFormat('en-US', {
+        return date.toLocaleDateString(undefined, {
             year: 'numeric',
             month: 'short',
-            day: 'numeric'
-        }).format(date);
+            day: 'numeric',
+        });
     }, []);
 
     return (
         <div className="w-full bg-gradient-to-b from-white/10 to-white/5 rounded-2xl overflow-hidden backdrop-blur-xl shadow-xl" data-aos="fade-up" data-aos-duration="1000">
-        <div className="p-6 border-b border-white/10" data-aos="fade-down" data-aos-duration="800">
-            <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-indigo-500/20">
-                    <MessageCircle className="w-6 h-6 text-indigo-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white">
-                    Comments <span className="text-indigo-400">({comments.length})</span>
-                </h3>
-            </div>
-        </div>
-        <div className="p-6 space-y-6">
-            {error && (
-                <div className="flex items-center gap-2 p-4 text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl" data-aos="fade-in">
-                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                    <p className="text-sm">{error}</p>
-                </div>
-            )}
-            
-            <div >
-                <CommentForm onSubmit={handleCommentSubmit} isSubmitting={isSubmitting} error={error} />
-            </div>
-
-            <div className="space-y-4 h-[300px] overflow-y-auto custom-scrollbar" data-aos="fade-up" data-aos-delay="200">
-                {comments.length === 0 ? (
-                    <div className="text-center py-8" data-aos="fade-in">
-                        <UserCircle2 className="w-12 h-12 text-indigo-400 mx-auto mb-3 opacity-50" />
-                        <p className="text-gray-400">No comments yet. Start the conversation!</p>
+            <div className="p-6 border-b border-white/10" data-aos="fade-down" data-aos-duration="800">
+                <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-xl bg-indigo-500/20">
+                        <MessageCircle className="w-6 h-6 text-indigo-400" />
                     </div>
-                ) : (
-                    comments.map((comment, index) => (
-                        <Comment 
-                            key={comment.id} 
-                            comment={comment} 
-                            formatDate={formatDate}
-                            index={index}
-                        />
-                    ))
-                )}
+                    <h3 className="text-xl font-semibold text-white">
+                        Comments <span className="text-indigo-400">({comments.length})</span>
+                    </h3>
+                </div>
             </div>
+            <div className="p-6 space-y-6">
+                {error && (
+                    <div className="flex items-center gap-2 p-4 text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl" data-aos="fade-in">
+                        <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                        <p className="text-sm">{error}</p>
+                    </div>
+                )}
+
+                <div>
+                    <CommentForm onSubmit={handleCommentSubmit} isSubmitting={isSubmitting} error={error} />
+                </div>
+
+                <div className="space-y-4 h-[300px] overflow-y-auto custom-scrollbar" data-aos="fade-up" data-aos-delay="200">
+                    {comments.length === 0 ? (
+                        <div className="text-center py-8" data-aos="fade-in">
+                            <UserCircle2 className="w-12 h-12 text-indigo-400 mx-auto mb-3 opacity-50" />
+                            <p className="text-gray-400">No comments yet. Start the conversation!</p>
+                        </div>
+                    ) : (
+                        comments.map((comment, index) => (
+                            <Comment
+                                key={comment._id || index}
+                                comment={comment}
+                                formatDate={formatDate}
+                                index={index}
+                            />
+                        ))
+                    )}
+                </div>
+            </div>
+            <style jsx>{`
+                .custom-scrollbar::-webkit-scrollbar {
+                    width: 6px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                    background: rgba(255, 255, 255, 0.05);
+                    border-radius: 6px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background: rgba(99, 102, 241, 0.5);
+                    border-radius: 6px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background: rgba(99, 102, 241, 0.7);
+                }
+            `}</style>
         </div>
-        <style jsx>{`
-            .custom-scrollbar::-webkit-scrollbar {
-                width: 6px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-track {
-                background: rgba(255, 255, 255, 0.05);
-                border-radius: 6px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-thumb {
-                background: rgba(99, 102, 241, 0.5);
-                border-radius: 6px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                background: rgba(99, 102, 241, 0.7);
-            }
-        `}</style>
-    </div>
     );
 };
 
