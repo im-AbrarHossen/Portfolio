@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "abrar-hossen-portfolio"
-  }
+  },
+  "targets": {
+    "abrar-hossen-portfolio": {
+      "hosting": {
+        "default": [
+          "abrar-hossen-portfolio"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
